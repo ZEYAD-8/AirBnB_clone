@@ -4,6 +4,7 @@ Defines unittests for models/base_model.py.
 
 Unittest classes:
     instantiation()
+    __str__()
     save()
     to_dict()
 """
