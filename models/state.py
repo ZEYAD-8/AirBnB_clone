@@ -9,5 +9,8 @@ from .base_model import BaseModel
 class State(BaseModel):
     """
     Represents all the attributes.
+
+    Attributes:
+        name = state name
     """
     name = ""

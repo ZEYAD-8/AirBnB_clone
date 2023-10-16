@@ -9,6 +9,10 @@ from .base_model import BaseModel
 class City(BaseModel):
     """
     Represents all the attributes.
+
+    Attributes:
+        state_id = state.id()
+        name = city_name
     """
     state_id = ""
     name = ""

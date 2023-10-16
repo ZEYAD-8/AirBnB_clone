@@ -9,5 +9,8 @@ from .base_model import BaseModel
 class Amenity(BaseModel):
     """
     Represents all the attributes.
+
+    Attributes:
+        name : amenity name
     """
     name = ""

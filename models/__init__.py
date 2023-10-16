@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
-Update models/__init__.py: to create a unique
-FileStorage instance for your application
+Creates a unique FileStorage instance 
+for the web application
 """
 from models.engine.file_storage import FileStorage
 

@@ -9,6 +9,18 @@ from .base_model import BaseModel
 class Place(BaseModel):
     """
     Represents all the attributes.
+
+    Attributes:
+        city_id = city.id()
+        user_id = user.id()
+        name = place_name
+        description = information about the place
+        number_rooms = number of rooms
+        max_guest = maximum numbers of guests
+        price_by_night = the cost of the place for night
+        latitude = exact coordinates for the place 
+        longitude = exact coordinates for the place
+        amenity_ids = list of amenity.id
     """
     city_id = ""
     user_id = ""

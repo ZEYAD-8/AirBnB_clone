@@ -14,6 +14,16 @@ from ..review import Review
 
 
 class DateTimeEncoder(json.JSONEncoder):
+    """
+    Custom JSON encoder for serializing datetime objects.
+
+    This encoder extends the default JSONEncoder and adds a check
+    to handle datetime objects by converting them
+    to ISO format before serialization.
+
+    Usage:
+    json.dumps(my_object, cls=DateTimeEncoder)
+    """
     def default(self, obj):
         if isinstance(obj, datetime.datetime):
             return obj.isoformat()

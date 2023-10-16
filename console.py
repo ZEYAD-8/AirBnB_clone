@@ -17,8 +17,30 @@ from models.review import Review
 
 class HBNBCommand(cmd.Cmd):
     """
-    Console.py : contains the entry
-    point of the command interpreter
+    HBNBCommand: Interactive Command-Line Interface
+
+    This class defines a command-line interpreter for a hypothetical
+    application (HBNB) with functionality to create, show, update,
+    and delete instances of various classes.
+
+    Attributes:
+    - prompt: The command prompt displayed to the user.
+    - classes: A dictionary mapping class names to their corresponding
+    class objects.
+
+    Methods:
+    - do_quit: Command to exit the program.
+    - emptyline: Overrides cmd module's emptyline method.
+    - do_EOF: Command to exit the program on EOF (Ctrl-D).
+    - do_create: Creates a new instance of a specified class.
+    - do_show: Prints the string representation of an instance.
+    - do_destroy: Deletes an instance based on class name and id.
+    - do_all: Prints string representations of instances.
+    - do_update: Updates an instance's attribute and saves changes.
+
+    Usage Examples:
+    (hbnb) cmd = HBNBCommand()
+    (hbnb) cmd.cmdloop()
     """
     prompt = "(hbnb) "
 
@@ -28,7 +50,10 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, line):
         """
-        Quit command to exit the program
+        Quit command to exit the program.
+
+        Examples:
+            (hbnb) quit
         """
         return True
 
@@ -40,17 +65,21 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, line):
         """
-        EOF command to exit the program
+        EOF command to exit the program.
+
+        Examples:
+            (hbnb) Ctrl-D
         """
-        print()  # Print a newline before exiting
+        print()
         return True
 
     def do_create(self, line):
         """
         Create a new instance.
+
+        Examples:
+            (hbnb) create BaseModel
         """
-        # parseline to extract the class name from the
-        # user input and then attempts to create an instance of that class.
         class_name = self.parseline(line)[0]
 
         if class_name is None:
@@ -58,30 +87,17 @@ class HBNBCommand(cmd.Cmd):
         elif class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
         else:
-            # globals is a function returns a dictionary.
-            # The keys are the names of all global
-            # variables, functions, classes in the current moment.
-            # and the values are the class itself.
-            # dictionary[key] -> value ((value = class))
-            # dictionary["BaseModel"] = BaseModel()
-            # instance = class()
-            # new_instance = globals()[class_name]()
             new_instance = globals()[class_name]()
-            # Note that we can NOT use eval() here becuase eval
-            # takes a string containing a dictionary
-            # that has the attributes of the instance we want to create
-            # and therefore we can't use it with
-            # class_name because it's a string that has only the name
             print(new_instance.id)
-            # the new_instance is already added to the FileStorage.__objects
-            # when the instance was initially created
-            # and the call to save just saves what's in there to storage space
             storage.save()
 
     def do_show(self, line):
         """
         Prints the string representation of an
         instance based on the class name and id.
+
+        Examples:
+            (hbnb) show BaseModel 1234-1234-1234
         """
         class_name, id, rest = self.parseline(line)
 
@@ -102,6 +118,9 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, line):
         """
         Deletes an instance based on the class name and id.
+
+        Examples:
+            (hbnb) destroy BaseModel 1234-1234-1234
         """
         class_name, id, rest = self.parseline(line)
 
@@ -124,6 +143,10 @@ class HBNBCommand(cmd.Cmd):
         """
         Prints all string representation of all
         instances based or not on the class name.
+
+        Examples:
+            (hbnb) all
+            (hbnb) all BaseModel
         """
         class_name = self.parseline(line)[0]
         instances = []
@@ -145,6 +168,10 @@ class HBNBCommand(cmd.Cmd):
         Updates an instance based on the class name and id
         by adding or updating attribute
         (save the change into the JSON file).
+
+        Examples:
+            (hbnb) update BaseModel 1234-1234-1234
+                attribute_name "new value"
         """
         args = split(line)
 
@@ -165,7 +192,6 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
             else:
                 setattr(object_get, args[2], args[3])
-                # THIS LINE MAY CAUSE OR SOLVE PROBLEMS
                 setattr(self, "updated_at", datetime.now())
                 storage.save()
 
